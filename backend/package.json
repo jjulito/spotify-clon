@@ -1,7 +1,7 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "Backend proxy para Spotify Clone",
+  "description": "Backend proxy para clon de Spotify",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

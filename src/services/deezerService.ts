@@ -38,21 +38,32 @@ export interface SearchResult {
   coverUrlMedium: string;
 }
 
+// Inicializador seguro de URLs
+const buildUrl = (endpoint: string): string => {
+  const base = config.api.baseURL.endsWith('/') 
+    ? config.api.baseURL.slice(0, -1) 
+    : config.api.baseURL;
+  
+  const cleanEndpoint = endpoint.startsWith('/') 
+    ? endpoint 
+    : `/${endpoint}`;
+    
+  return `${base}${cleanEndpoint}`;
+};
+
 const makeRequest = async (url: string) => {
   try {
     let apiUrl: string;
     
     // Determinar qué endpoint usar basado en la URL
     if (url.includes('genre')) {
-      // Extraer el género y límite
       const genreMatch = url.match(/genre:"([^"]+)"/);
       const limitMatch = url.match(/limit=(\d+)/);
       
       if (genreMatch) {
         const genre = genreMatch[1];
         const limit = limitMatch ? limitMatch[1] : '10';
-        // Usar el endpoint correcto del backend
-        apiUrl = `${config.api.baseURL}/api/deezer/genre/${genre}?limit=${limit}`;
+        apiUrl = buildUrl(`/api/deezer/genre/${genre}?limit=${limit}`);
       } else {
         throw new Error('Formato de URL de género inválido');
       }
@@ -60,9 +71,9 @@ const makeRequest = async (url: string) => {
       const urlObj = new URL(`https://api.deezer.com${url}`);
       const query = urlObj.searchParams.get('q');
       const limit = urlObj.searchParams.get('limit') || '20';
-      apiUrl = `${config.api.baseURL}/api/deezer/search?q=${encodeURIComponent(query || '')}&limit=${limit}`;
+      apiUrl = buildUrl(`/api/deezer/search?q=${encodeURIComponent(query || '')}&limit=${limit}`);
     } else if (url.includes('/chart')) {
-      apiUrl = `${config.api.baseURL}/api/deezer/chart`;
+      apiUrl = buildUrl('/api/deezer/chart');
     } else {
       throw new Error(`Endpoint no soportado: ${url}`);
     }
@@ -87,7 +98,6 @@ const makeRequest = async (url: string) => {
     const errorMessage = error instanceof Error ? error.message : 'Error desconocido';
     console.error('❌ Error con API propia:', errorMessage);
     
-    // Fallback a proxies públicos solo si es desarrollo
     const isProduction = process.env.NODE_ENV === 'production';
     if (!isProduction) {
       console.log('🔄 Intentando con proxies públicos...');
