@@ -39,28 +39,20 @@ export interface SearchResult {
 }
 
 const makeRequest = async (url: string) => {
-  const endpoints: { [key: string]: string } = {
-    // Búsqueda normal
-    '/search': `${config.api.baseURL}/api/deezer/search`,
-    // Chart popular
-    '/chart/0/tracks': `${config.api.baseURL}/api/deezer/chart`,
-    // Búsqueda por género (manejo especial)
-    'genre': `${config.api.baseURL}/api/deezer/genre`
-  };
-
   try {
     let apiUrl: string;
     
     // Determinar qué endpoint usar basado en la URL
     if (url.includes('genre')) {
-      // Extraer el género de la URL: https://api.deezer.com/search?q=genre:"pop"&limit=10
+      // Extraer el género y límite
       const genreMatch = url.match(/genre:"([^"]+)"/);
       const limitMatch = url.match(/limit=(\d+)/);
       
       if (genreMatch) {
         const genre = genreMatch[1];
         const limit = limitMatch ? limitMatch[1] : '10';
-        apiUrl = `${endpoints.genre}/${genre}?limit=${limit}`;
+        // Usar el endpoint correcto del backend
+        apiUrl = `${config.api.baseURL}/api/deezer/genre/${genre}?limit=${limit}`;
       } else {
         throw new Error('Formato de URL de género inválido');
       }
@@ -68,9 +60,9 @@ const makeRequest = async (url: string) => {
       const urlObj = new URL(`https://api.deezer.com${url}`);
       const query = urlObj.searchParams.get('q');
       const limit = urlObj.searchParams.get('limit') || '20';
-      apiUrl = `${endpoints['/search']}?q=${encodeURIComponent(query || '')}&limit=${limit}`;
+      apiUrl = `${config.api.baseURL}/api/deezer/search?q=${encodeURIComponent(query || '')}&limit=${limit}`;
     } else if (url.includes('/chart')) {
-      apiUrl = endpoints['/chart/0/tracks'];
+      apiUrl = `${config.api.baseURL}/api/deezer/chart`;
     } else {
       throw new Error(`Endpoint no soportado: ${url}`);
     }
@@ -92,18 +84,18 @@ const makeRequest = async (url: string) => {
     return data;
     
   } catch (error: unknown) {
-  const errorMessage = error instanceof Error ? error.message : 'Error desconocido';
-  console.error('❌ Error con API propia:', errorMessage);
-  
-  // Fallback a proxies públicos solo si es desarrollo
-  const isProduction = process.env.NODE_ENV === 'production';
-  if (!isProduction) {
-    console.log('🔄 Intentando con proxies públicos...');
-    return await tryPublicProxies(url);
+    const errorMessage = error instanceof Error ? error.message : 'Error desconocido';
+    console.error('❌ Error con API propia:', errorMessage);
+    
+    // Fallback a proxies públicos solo si es desarrollo
+    const isProduction = process.env.NODE_ENV === 'production';
+    if (!isProduction) {
+      console.log('🔄 Intentando con proxies públicos...');
+      return await tryPublicProxies(url);
+    }
+    
+    throw new Error('No se pudo conectar con el servidor');
   }
-  
-  throw new Error('No se pudo conectar con el servidor');
- }
 };
 
 const tryPublicProxies = async (url: string) => {
