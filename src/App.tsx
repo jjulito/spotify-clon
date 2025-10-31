@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { Home, Search, Library, Playlist } from './pages';
 import { Sidebar, Player } from './components/Layout';
 import LikedSongs from './pages/LikedSongs';
