@@ -1569,8 +1569,8 @@
   border-radius: 50%;
   transition: background-color 0.2s ease;
   position: absolute;
-  top: 32px;
-  left: 32px;
+  top: 60px;
+  left: 240px;
 }
 
 .back-button:hover {
