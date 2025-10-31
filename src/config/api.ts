@@ -1,7 +1,7 @@
 const isProduction = process.env.NODE_ENV === 'production';
 
 export const API_BASE_URL = isProduction 
-  ? 'https://spotify-clon-zjoy.onrender.com'
+  ? 'http://spotify-clon-backend-8inr.onrender.com/'
   : 'http://localhost:3001';
 
 export const config = {
