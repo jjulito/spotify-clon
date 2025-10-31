@@ -1,46 +1,135 @@
-# Getting Started with Create React App
+# Spotify Clone 🎵
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern, responsive Spotify clone built with React, TypeScript, and Node.js. This full-stack application replicates core Spotify features including music playback, search functionality, playlist management, and a sleek user interface.
 
-## Available Scripts
+## 🌟 Features
 
-In the project directory, you can run:
+### Frontend
+- **Modern React 18** with TypeScript for type safety
+- **Responsive Design** that works on all devices
+- **Real-time Music Player** with playback controls
+- **Advanced Search** with genre filtering
+- **Playlist Management** - create, edit, and delete playlists
+- **Library Organization** for your music collection
+- **Dark Theme UI** inspired by Spotify's design
 
-### `npm start`
+### Backend
+- **Node.js & Express** RESTful API
+- **CORS-enabled** for cross-origin requests
+- **Deezer API Integration** for music data
+- **Proxy Server** to handle API requests securely
+- **Production-ready** deployment configuration
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 🚀 Live Demo
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- **Frontend**: [https://jjulito.github.io/spotify-clon/#/](https://jjulito.github.io/spotify-clon/#/)
 
-### `npm test`
+## 🛠 Tech Stack
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Frontend
+- **React 18** - UI framework
+- **TypeScript** - Type safety
+- **React Router** - Navigation
+- **Lucide React** - Icons
+- **CSS3** - Styling and animations
 
-### `npm run build`
+### Backend
+- **Node.js** - Runtime environment
+- **Express.js** - Web framework
+- **CORS** - Cross-origin resource sharing
+- **node-fetch** - HTTP requests
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Deployment
+- **GitHub Pages** - Frontend hosting
+- **Render** - Backend hosting
+- **Git** - Version control
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 📦 Installation
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Prerequisites
+- Node.js (v18 or higher)
+- npm or yarn
 
-### `npm run eject`
+### Frontend Setup
+```bash
+# Clone the repository
+git clone https://github.com/jjulito/spotify-clon.git
+cd spotify-clon
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+# Install dependencies
+npm install
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+# Start development server
+npm start
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Backend Setup
+```bash
+# Navigate to backend directory
+cd backend
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+# Install dependencies
+npm install
 
-## Learn More
+# Start development server
+npm run dev
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 🎵 Features in Detail
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Music Player
+- Play/pause functionality
+- Track progress bar
+- Volume control
+- Next/previous track navigation
+- Playlist queue management
+
+### Search & Discovery
+- Real-time search with debouncing
+- Genre-based filtering (Pop, Rock, Hip-Hop, Electronic, Latin, Chill)
+- Track preview playback
+- Artist and album information
+
+### Playlist Management
+- Create custom playlists
+- Add/remove tracks
+- Playlist cover customization
+- Persistent storage using React Context
+
+## 🚀 Deployment
+
+### Frontend (GitHub Pages)
+```bash
+npm run deploy
+```
+
+### Backend (Render)
+1. Connect your GitHub repository to Render
+2. Set root directory to `backend`
+3. Configure build command: `npm install`
+4. Set start command: `npm start`
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
+
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/Feature`)
+3. Commit your changes (`git commit -m 'Add some Feature'`)
+4. Push to the branch (`git push origin feature/Feature`)
+5. Open a Pull Request
+
+## 📝 License
+
+This project is for educational purposes. All music rights belong to their respective owners and Deezer API.
+
+
+## 📞 Contact
+
+Julito - [GitHub](https://github.com/jjulito)
+
+Project Link: [https://github.com/jjulito/spotify-clon/#/](https://github.com/jjulito/spotify-clon/#/)
+
+---
+
+**Note**: This is a clone project for portfolio and educational purposes. Not affiliated with Spotify AB.
