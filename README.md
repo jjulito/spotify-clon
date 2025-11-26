@@ -128,7 +128,7 @@ This project is for educational purposes. All music rights belong to their respe
 
 Julito - [GitHub](https://github.com/jjulito)
 
-Project Link: [https://github.com/jjulito/spotify-clon/#/](https://github.com/jjulito/spotify-clon/#/)
+Project Link: [https://jjulito.github.io/spotify-clon/#/](https://jjulito.github.io/spotify-clon/#/)
 
 ---
 
