@@ -295,7 +295,7 @@ const Search = () => {
                   className="go-to-library-btn"
                   onClick={() => {
                     setShowAddToPlaylist(false);
-                    window.location.href = '/library';
+                    window.location.href = '#/library';
                   }}
                 >
                   Crear playlist en Tu Biblioteca
