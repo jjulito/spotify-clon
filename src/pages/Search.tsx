@@ -1,11 +1,13 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Search as SearchIcon, Play, Heart, AlertCircle, Users, UserPlus, UserCheck, ListMusic, Music } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { searchTracks, SearchResult } from '../services/deezerService';
 import { usePlayer } from '../contexts/PlayerContext';
 import { Song, Playlist, Artist } from '../types';
 import { useLibrary } from '../contexts/LibraryContext';
 
 const Search = () => {
+  const navigate = useNavigate();
   const { addArtist, state: libraryState, addSongToPlaylist } = useLibrary();
   const [query, setQuery] = useState('');
   const [tracks, setTracks] = useState<SearchResult[]>([]);
@@ -27,7 +29,7 @@ const Search = () => {
     setLoading(true);
     setHasSearched(true);
     setError(null);
-    
+
     try {
       const results = await searchTracks(searchQuery);
       setTracks(results);
@@ -79,9 +81,9 @@ const Search = () => {
     }));
 
     const currentIndex = allTracks.findIndex(t => t.id === track.id);
-    
-    dispatch({ 
-      type: 'PLAY_SONG', 
+
+    dispatch({
+      type: 'PLAY_SONG',
       payload: {
         song,
         playlist,
@@ -157,7 +159,7 @@ const Search = () => {
         coverUrl: selectedTrack.coverUrl,
         audioUrl: selectedTrack.previewUrl
       };
-      
+
       addSongToPlaylist(playlistId, song);
       setShowAddToPlaylist(false);
       setSelectedTrack(null);
@@ -218,8 +220,8 @@ const Search = () => {
                     {index + 1}
                   </div>
                   <div className="track-info">
-                    <img 
-                      src={track.coverUrl} 
+                    <img
+                      src={track.coverUrl}
                       alt={track.album}
                       className="track-image"
                       onError={(e) => {
@@ -236,7 +238,7 @@ const Search = () => {
                     {formatDuration(track.duration)}
                   </div>
                   <div className="track-actions">
-                    <button 
+                    <button
                       className="play-track-btn"
                       onClick={() => handlePlayTrack(track, tracks)}
                       disabled={!track.previewUrl}
@@ -244,32 +246,32 @@ const Search = () => {
                     >
                       <Play size={16} />
                     </button>
-                    <button 
+                    <button
                       className="like-track-btn"
                       onClick={() => handleLikeTrack(track)}
                       title={isTrackLiked(track.id) ? "Quitar de Tus Me Gusta" : "Agregar a Tus Me Gusta"}
                     >
-                      <Heart 
-                        size={16} 
+                      <Heart
+                        size={16}
                         fill={isTrackLiked(track.id) ? '#1db954' : 'none'}
                         color={isTrackLiked(track.id) ? '#1db954' : '#b3b3b3'}
                       />
                     </button>
-                    <button 
+                    <button
                       className="add-to-playlist-btn"
                       onClick={() => handleShowAddToPlaylist(track)}
                       title="Agregar a playlist"
                     >
                       <ListMusic size={16} />
                     </button>
-                    <button 
+                    <button
                       className="follow-artist-btn"
                       onClick={() => toggleFollowArtist(track.artist, track)}
                       disabled={isArtistFollowed(track.artist)}
                       title={isArtistFollowed(track.artist) ? "Ya sigues a este artista" : "Seguir artista"}
                     >
-                      {isArtistFollowed(track.artist) ? 
-                        <UserCheck size={16} /> : 
+                      {isArtistFollowed(track.artist) ?
+                        <UserCheck size={16} /> :
                         <UserPlus size={16} />
                       }
                     </button>
@@ -287,49 +289,49 @@ const Search = () => {
           <div className="modal-content">
             <h3>Agregar a playlist</h3>
             <p>Selecciona una playlist para "{selectedTrack.title}"</p>
-            
+
             {libraryState.playlists.length === 0 ? (
               <div className="no-playlists">
                 <p>No tienes playlists creadas</p>
-                <button 
+                <button
                   className="go-to-library-btn"
                   onClick={() => {
                     setShowAddToPlaylist(false);
-                    window.location.href = '#/library';
+                    navigate('/library');
                   }}
                 >
                   Crear playlist en Tu Biblioteca
                 </button>
               </div>
             ) : (
-                <div className="playlists-list">
+              <div className="playlists-list">
                 {libraryState.playlists.map((playlist: Playlist) => (
-                    <div 
-                    key={playlist.id} 
+                  <div
+                    key={playlist.id}
                     className="playlist-option"
                     onClick={() => handleAddToPlaylist(playlist.id)}
-                    >
+                  >
                     {playlist.coverUrl.includes('gradient') ? (
-                        <div 
+                      <div
                         className="gradient-cover small"
                         style={{ background: playlist.coverUrl }}
-                        >
+                      >
                         <Music size={20} color="#b3b3b3" />
-                        </div>
+                      </div>
                     ) : (
-                        <img src={playlist.coverUrl} alt={playlist.name} />
+                      <img src={playlist.coverUrl} alt={playlist.name} />
                     )}
                     <div className="playlist-info">
-                        <span className="playlist-name">{playlist.name}</span>
-                        <span className="playlist-songs">{playlist.songs.length} canciones</span>
+                      <span className="playlist-name">{playlist.name}</span>
+                      <span className="playlist-songs">{playlist.songs.length} canciones</span>
                     </div>
-                    </div>
+                  </div>
                 ))}
-                </div>
+              </div>
             )}
-            
+
             <div className="modal-actions">
-              <button 
+              <button
                 onClick={() => setShowAddToPlaylist(false)}
                 className="cancel-btn">
                 Cancelar
