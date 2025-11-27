@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Search as SearchIcon, Play, Heart, AlertCircle, Users, UserPlus, UserCheck, ListMusic, Music } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { searchTracks, SearchResult } from '../services/deezerService';
 import { usePlayer } from '../contexts/PlayerContext';
 import { Song, Playlist, Artist } from '../types';
