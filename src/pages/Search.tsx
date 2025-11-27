@@ -1,13 +1,12 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Search as SearchIcon, Play, Heart, AlertCircle, Users, UserPlus, UserCheck, ListMusic, Music } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { searchTracks, SearchResult } from '../services/deezerService';
 import { usePlayer } from '../contexts/PlayerContext';
 import { Song, Playlist, Artist } from '../types';
 import { useLibrary } from '../contexts/LibraryContext';
 
 const Search = () => {
-  const navigate = useNavigate();
   const { addArtist, state: libraryState, addSongToPlaylist } = useLibrary();
   const [query, setQuery] = useState('');
   const [tracks, setTracks] = useState<SearchResult[]>([]);
@@ -293,15 +292,14 @@ const Search = () => {
             {libraryState.playlists.length === 0 ? (
               <div className="no-playlists">
                 <p>No tienes playlists creadas</p>
-                <button
+                <Link
+                  to="/library"
                   className="go-to-library-btn"
-                  onClick={() => {
-                    setShowAddToPlaylist(false);
-                    navigate('/library');
-                  }}
+                  onClick={() => setShowAddToPlaylist(false)}
+                  style={{ textDecoration: 'none', display: 'inline-block', textAlign: 'center' }}
                 >
                   Crear playlist en Tu Biblioteca
-                </button>
+                </Link>
               </div>
             ) : (
               <div className="playlists-list">
